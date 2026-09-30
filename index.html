@@ -401,9 +401,18 @@
             .nav-links a { padding: 10px 0; width: 100%; text-align: center; }
 
             .hero { padding-top: 20px; min-height: 60vh; }
+            .hero-card { padding: 40px 20px; } /* This fixes the squished container */
             .hero h1 { font-size: 2.2rem; }
-            .hero-actions { flex-direction: column; width: 100%; }
-            .hero-actions .btn { width: 100%; }
+            
+            .hero-actions { 
+                flex-direction: column; 
+                width: 100%; 
+                align-items: center; /* Forces buttons to the center */
+            }
+            .hero-actions .btn { 
+                width: 100%; 
+                max-width: 320px; /* Prevents them from stretching too wide on tablets */
+            }
 
             .clinician-card { flex-direction: column; text-align: center; padding: 30px 20px; }
             .clinician-ctas { flex-direction: column; width: 100%; }
