@@ -415,15 +415,19 @@
             }
 
             .clinician-card { flex-direction: column; text-align: center; padding: 30px 20px; }
-                        .clinician-ctas { 
+                         .clinician-ctas { 
+                display: flex;
                 flex-direction: column; 
                 width: 100%; 
-                align-items: center; /* Forces buttons to center */
+                align-items: center; 
+                gap: 15px;
             }
             .clinician-ctas .btn { 
-                width: 100%; 
-                max-width: 320px; /* Stops them from touching the edges */
+                width: 80%; /* Forces the buttons to leave 10% breathing room on each side */
+                max-width: 280px; /* Hard limit for slightly larger phones */
+                margin: 0 auto; /* Perfectly centers the buttons horizontally */
             }
+
             .clinician-info h2 { font-size: 2rem; }
             .features-grid { margin-top: 0; }
         }
