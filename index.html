@@ -106,7 +106,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
 
         .nav-links a {
@@ -115,6 +115,7 @@
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            font-size: 0.95rem;
         }
 
         .nav-links a::after {
@@ -260,7 +261,7 @@
             gap: 20px;
             flex-wrap: wrap;
             padding: 0 5%;
-            margin-top: -40px; /* Pulls it up slightly over the hero */
+            margin-top: -40px; 
             position: relative;
             z-index: 10;
         }
@@ -315,6 +316,37 @@
         .service-card i {
             font-size: 40px;
             color: var(--primary-teal);
+        }
+        
+        /* --- Testimonials Space --- */
+        .testimonials-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            width: 320px; /* Optimal width for IG Reels */
+            height: 560px;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-card iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
         }
 
         /* --- About/Clinician Section --- */
@@ -401,7 +433,7 @@
 
         .footer-logo {
             width: 60px;
-            filter: brightness(0) invert(1); /* Makes logo white for dark bg */
+            filter: brightness(0) invert(1); 
             opacity: 0.8;
         }
 
@@ -409,6 +441,8 @@
             display: flex;
             gap: 20px;
             margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .footer-links a {
@@ -434,27 +468,24 @@
         }
 
         /* =========================================
-           MOBILE RESPONSIVENESS & COMPACT HEADER
+           MOBILE RESPONSIVENESS
            ========================================= */
         @media (max-width: 850px) {
-            /* Fixes the sticky header bloat */
             header {
                 padding: 12px 20px;
                 margin: 10px;
                 border-radius: 15px;
-                flex-wrap: wrap; /* Allows menu to drop down */
+                flex-wrap: wrap; 
             }
 
             .brand img { width: 45px; height: 45px; }
             .brand-title { font-size: 18px; }
             
-            /* Show Hamburger Button */
             .menu-btn { display: block; }
             .header-btn { display: none; }
 
-            /* Dropdown Mobile Menu styling */
             .nav-links {
-                display: none; /* Hidden completely until clicked */
+                display: none; 
                 width: 100%;
                 flex-direction: column;
                 padding: 15px 0;
@@ -463,10 +494,7 @@
                 animation: slideDown 0.3s ease forwards;
             }
 
-            /* JS class to show menu */
-            .nav-links.active {
-                display: flex;
-            }
+            .nav-links.active { display: flex; }
 
             @keyframes slideDown {
                 from { opacity: 0; transform: translateY(-10px); }
@@ -514,6 +542,7 @@
         <nav class="nav-links" id="mobileMenu">
             <a href="#features" onclick="toggleMenu()">Features</a>
             <a href="#services" onclick="toggleMenu()">Services Offered</a>
+            <a href="#testimonials" onclick="toggleMenu()">Testimonials</a>
             <a href="#about" onclick="toggleMenu()">About Us</a>
             <a href="#clinician" onclick="toggleMenu()">Know Your Clinician</a>
         </nav>
@@ -561,6 +590,32 @@
             <div class="service-card glass-panel"><i class="fas fa-teeth-open"></i><h3>Aligners</h3></div>
             <div class="service-card glass-panel"><i class="fas fa-fill-drip"></i><h3>Composites</h3></div>
             <div class="service-card glass-panel"><i class="fas fa-crown"></i><h3>Zirconia Crowns</h3></div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Space (Instagram Reels Embeds) -->
+    <section id="testimonials" class="section-container reveal">
+        <h2 class="section-title">Happy Smiles, Happy Patients</h2>
+        <div class="testimonials-grid">
+            
+            <!-- Reel 1 -->
+            <div class="testimonial-card glass-panel">
+                <!-- Replace 'C-...' with the actual reel ID and keep '/embed' at the end -->
+                <iframe src="https://www.instagram.com/reel/C-VfP94P9xH/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+            <!-- Reel 2 -->
+            <div class="testimonial-card glass-panel">
+                <!-- Replace 'C-...' with the actual reel ID and keep '/embed' at the end -->
+                <iframe src="https://www.instagram.com/reel/C-xyz_Example123/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+            <!-- Reel 3 -->
+            <div class="testimonial-card glass-panel">
+                <!-- Replace 'C-...' with the actual reel ID and keep '/embed' at the end -->
+                <iframe src="https://www.instagram.com/reel/C-abc_Example456/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+            </div>
+            
         </div>
     </section>
 
