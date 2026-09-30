@@ -582,18 +582,27 @@
         </div>
     </section>
     
-    <!-- Testimonials Space -->
+     <!-- Testimonials Space -->
     <section id="testimonials" class="section-container reveal">
         <h2 class="section-title">Happy Smiles, Happy Patients</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card glass-panel">
-                <iframe src="https://www.instagram.com/reel/C-VfP94P9xH/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
-            </div>
-            <div class="testimonial-card glass-panel">
-                <iframe src="https://www.instagram.com/reel/C-xyz_Example123/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
-            </div>
-            <div class="testimonial-card glass-panel">
-                <iframe src="https://www.instagram.com/reel/C-abc_Example456/embed" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+        
+        <div class="testimonials-slider">
+            <div class="testimonials-track">
+                
+                <!-- Set 1 (Dynamic Loop from Database) -->
+                {% for reel in reels %}
+                <div class="testimonial-card glass-panel">
+                    <iframe src="{{ reel.reel_url }}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                </div>
+                {% endfor %}
+
+                <!-- Set 2 (Duplicated Loop for the Seamless Infinite Slider) -->
+                {% for reel in reels %}
+                <div class="testimonial-card glass-panel">
+                    <iframe src="{{ reel.reel_url }}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                </div>
+                {% endfor %}
+                
             </div>
         </div>
     </section>
