@@ -6,6 +6,9 @@
     <title>Vighnaharta HiTech Dental Care | Ambajogai</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* Modern Clinical & Glassmorphism Theme */
         :root {
@@ -13,6 +16,8 @@
             --accent-blue: #0077b6;
             --text-main: #1e293b;
             --text-soft: #475569;
+            --whatsapp: #25D366;
+            --instagram: #E1306C;
         }
 
         body {
@@ -99,7 +104,7 @@
             color: var(--primary-teal);
         }
 
-        /* --- Interactive Buttons --- */
+        /* --- Buttons --- */
         .btn {
             padding: 12px 28px;
             border-radius: 50px;
@@ -127,10 +132,6 @@
             box-shadow: 0 8px 25px rgba(24, 90, 106, 0.4);
         }
 
-        .btn-primary:active {
-            transform: scale(0.96); 
-        }
-
         .btn-outline {
             background: rgba(255, 255, 255, 0.5);
             color: var(--primary-teal);
@@ -143,13 +144,44 @@
             transform: translateY(-3px);
         }
 
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+        }
+        .btn-whatsapp:hover { background-color: #1ebe57; transform: translateY(-3px); }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+        .btn-instagram:hover { filter: brightness(1.1); transform: translateY(-3px); }
+
+        .btn-call {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        .btn-call:hover { filter: brightness(1.1); transform: translateY(-3px); }
+
+        /* --- Global Section Settings --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-teal);
+            margin-bottom: 40px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5%;
+        }
+
         /* --- Hero Section --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 5%;
-            margin-top: 20px;
+            padding: 40px 5%;
         }
 
         .hero-card {
@@ -183,133 +215,177 @@
             line-height: 1.7;
         }
 
-        .hero-actions {
+        /* --- Features Space --- */
+        .features-grid {
             display: flex;
+            justify-content: center;
             gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        /* --- Clinic Contact Bar --- */
-        .contact-bar {
-            display: flex;
-            gap: 30px;
-            padding: 20px 40px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 800px;
-            justify-content: space-around;
+            margin-top: -20px;
             flex-wrap: wrap;
-            box-sizing: border-box;
+            padding: 0 5%;
         }
 
-        .contact-item {
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
-            text-align: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
         }
 
-        .contact-label {
-            font-size: 0.85rem;
-            color: var(--text-soft);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
 
-        .contact-value {
+        .feature-icon {
+            font-size: 35px;
+            color: var(--accent-blue);
+        }
+
+        .feature-card h3 {
+            margin: 0;
             font-size: 1.1rem;
-            font-weight: 600;
             color: var(--text-main);
-            text-decoration: none;
-            transition: color 0.2s;
         }
 
-        .contact-value:hover {
+        /* --- Services Space --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-teal);
+        }
+
+        .service-card i {
+            font-size: 40px;
             color: var(--primary-teal);
         }
 
+        .service-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* --- Clinician Section --- */
+        .clinician-card {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .clinician-img {
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .clinician-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .clinician-info {
+            flex: 2;
+        }
+
+        .clinician-info h4 {
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .clinician-info h2 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+        }
+
+        .clinician-info .degrees {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-soft);
+            margin-bottom: 5px;
+        }
+
+        .clinician-info .reg {
+            font-size: 1rem;
+            color: var(--primary-teal);
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .clinician-ctas {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         /* =========================================
-           FIXED MOBILE RESPONSIVENESS
+           MOBILE RESPONSIVENESS
            ========================================= */
         @media (max-width: 850px) {
-            /* 1. Header neatly stacks */
             header {
                 flex-direction: column;
                 padding: 20px;
                 margin: 10px;
                 border-radius: 15px;
             }
-
-            /* 2. Logo and text center cleanly */
-            .brand {
-                flex-direction: column;
-                text-align: center;
-                gap: 5px;
-            }
-            .brand-text {
-                align-items: center;
-            }
-            .brand-title {
-                font-size: 22px;
-            }
-
-            /* 3. Links list vertically under a divider line */
+            .brand { flex-direction: column; text-align: center; gap: 5px; }
+            .brand-title { font-size: 22px; }
             .nav-links {
+                flex-direction: column; width: 100%; text-align: center; gap: 12px;
+                margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(24, 90, 106, 0.1);
+            }
+            .nav-links a { margin: 0; font-size: 15px; padding: 5px 0; }
+            .header-btn { display: none !important; }
+
+            .hero h1 { font-size: 2.2rem; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .hero-actions .btn { width: 100%; }
+
+            .clinician-card {
                 flex-direction: column;
-                width: 100%;
                 text-align: center;
-                gap: 12px;
-                margin-top: 15px;
-                padding-top: 15px;
-                border-top: 1px solid rgba(24, 90, 106, 0.1);
+                padding: 30px 20px;
+                gap: 30px;
             }
-            .nav-links a {
-                margin: 0;
-                font-size: 15px;
-                padding: 5px 0;
-            }
-
-            /* 4. Force hide the floating button completely */
-            .header-btn {
-                display: none !important; 
-            }
-
-            .hero {
-                padding: 10px 5%;
-                margin-top: 0;
-            }
-
-            .hero-card {
-                padding: 40px 20px;
-                border-radius: 20px;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero p {
-                font-size: 0.95rem;
-                margin-bottom: 30px;
-            }
-
-            .hero-actions {
+            .clinician-ctas {
                 flex-direction: column;
                 width: 100%;
-                gap: 15px;
             }
-
-            .hero-actions .btn {
+            .clinician-ctas .btn {
                 width: 100%;
             }
-
-            .contact-bar {
-                flex-direction: column;
-                padding: 25px 20px;
-                gap: 25px;
-            }
+            .section-title { font-size: 1.8rem; }
+            .clinician-info h2 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -318,7 +394,7 @@
     <!-- Glass Header -->
     <header class="glass-panel">
         <a href="#" class="brand">
-            <img src="https://raw.githubusercontent.com/prathuuu294/Vighnaharta-Hi-Tech-Dental-Care/main/1000727443.png" alt="Vighnaharta Logo">
+            <img src="1000727443.png" alt="Vighnaharta Logo">
             <div class="brand-text">
                 <span class="brand-title">Vighnaharta</span>
                 <span class="brand-subtitle">HiTech Dental Care</span>
@@ -327,9 +403,7 @@
         <nav class="nav-links">
             <a href="#about">Dr. Pranav Umarane</a>
             <a href="#services">Clinical Services</a>
-            <a href="#cases">Case Gallery</a>
         </nav>
-        <!-- Added header-btn class to ensure it hides on mobile -->
         <a href="#book" class="btn btn-primary header-btn">Book Appointment</a>
     </header>
 
@@ -338,25 +412,60 @@
         <div class="hero-card glass-panel">
             <h1>Advanced Clinical Care.<br><span>Designed for Comfort.</span></h1>
             <p>Experience pain-free, modern dentistry in Ambajogai. Led by NHDC alumnus Dr. Pranav Umarane, we bring cutting-edge technology and precision diagnostics to restore your perfect smile.</p>
-            
             <div class="hero-actions">
-                <a href="#book" class="btn btn-primary">Schedule Consultation</a>
+                <a href="#about" class="btn btn-primary">Schedule Consultation</a>
                 <a href="#services" class="btn btn-outline">Explore Treatments</a>
             </div>
+        </div>
+    </section>
 
-            <!-- Glass Contact Information Bar -->
-            <div class="contact-bar glass-panel">
-                <div class="contact-item">
-                    <span class="contact-label">Call For Appointment</span>
-                    <a href="tel:+917666312701" class="contact-value">+91 7666312701</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Clinic Location</span>
-                    <span class="contact-value">Annabhau Sathe Chauk, Ambajogai</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Get Directions</span>
-                    <a href="https://maps.app.goo.gl/DQdhGTWKQDcmH6zDA?g_st=ac" target="_blank" class="contact-value" style="color: var(--accent-blue); text-decoration: underline;">Open in Maps</a>
+    <!-- Features Space -->
+    <section class="features-grid">
+        <div class="feature-card glass-panel">
+            <i class="fas fa-smile-beam feature-icon"></i>
+            <h3>Modern Smile Expert</h3>
+        </div>
+        <div class="feature-card glass-panel">
+            <i class="fas fa-tooth feature-icon"></i>
+            <h3>Centre for Advanced Dentistry</h3>
+        </div>
+        <div class="feature-card glass-panel">
+            <i class="fas fa-microscope feature-icon"></i>
+            <h3>Hi-Tech Machine Infrastructures</h3>
+        </div>
+    </section>
+
+    <!-- Services Space -->
+    <section id="services" class="section-container">
+        <h2 class="section-title">Our Specialised Services</h2>
+        <div class="services-grid">
+            <div class="service-card glass-panel"><i class="fas fa-tooth"></i><h3>Root Canal Treatment</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-magic"></i><h3>Teeth Scaling</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-syringe"></i><h3>Tooth Extraction</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-grin-stars"></i><h3>Smile Designing</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-screw"></i><h3>Dental Implants</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-teeth-open"></i><h3>Aligners</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-fill-drip"></i><h3>Composites</h3></div>
+            <div class="service-card glass-panel"><i class="fas fa-crown"></i><h3>Zirconia Crowns</h3></div>
+        </div>
+    </section>
+
+    <!-- Know Your Clinician Section -->
+    <section id="about" class="section-container">
+        <div class="clinician-card glass-panel">
+            <div class="clinician-img">
+                <img src="1000727449.png" alt="Dr. Pranav Pravin Umarane">
+            </div>
+            <div class="clinician-info">
+                <h4>Know Your Clinician</h4>
+                <h2>Dr. Pranav Pravin Umarane</h2>
+                <div class="degrees">BDS (Nair Hospital, Mumbai)</div>
+                <div class="reg">Reg No. : A-58682</div>
+                
+                <div class="clinician-ctas">
+                    <a href="tel:+917666312701" class="btn btn-call"><i class="fas fa-phone-alt"></i> Direct Call</a>
+                    <a href="https://wa.me/917666312701" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.instagram.com/vighnaharta.hitech.dental.care?stkn=MXU2dDNuODZya3M1MQ==" target="_blank" class="btn btn-instagram"><i class="fab fa-instagram"></i> Instagram</a>
                 </div>
             </div>
         </div>
@@ -364,4 +473,3 @@
 
 </body>
 </html>
-
