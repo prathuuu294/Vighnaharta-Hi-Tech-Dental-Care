@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Dashboard | Vighnaharta Dental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; padding: 20px 5%; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px; margin-top: 20px; }
+        .header h2 { margin: 0; color: #00e5ff; }
+        .btn-logout { background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 15px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
+        .btn-logout:hover { background: #ff4d4d; color: white; }
+        
+        /* Table Styling */
+        .table-container { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; min-width: 600px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        th { background: rgba(0, 229, 255, 0.1); color: #00e5ff; font-weight: 600; }
+        td a { color: #00e5ff; text-decoration: none; }
+        td a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Dr. Pranav's Dashboard</h2>
+        <a href="/logout" class="btn-logout">Logout</a>
+    </div>
+    
+    <h3 style="margin-bottom: 15px;">Patient Consultation Leads</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient Name</th>
+                    <th>Phone Number</th>
+                    <th>Chief Complaint</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td>#{{ lead.id }}</td>
+                    <td>{{ lead.name }}</td>
+                    <td><a href="tel:{{ lead.phone }}">{{ lead.phone }}</a></td>
+                    <td>{{ lead.complaint }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px; color: #cbd5e1;">No patient leads yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
