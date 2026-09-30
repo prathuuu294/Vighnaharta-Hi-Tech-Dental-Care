@@ -9,7 +9,7 @@
     <style>
         /* Modern Clinical & Glassmorphism Theme */
         :root {
-            --primary-teal: #185a6a; /* Matched to the logo's deep teal */
+            --primary-teal: #185a6a; 
             --accent-blue: #0077b6;
             --text-main: #1e293b;
             --text-soft: #475569;
@@ -19,7 +19,6 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             color: var(--text-main);
-            /* Background gradients to make the glass effect visible */
             background-color: #f8fafc;
             background-image: 
                 radial-gradient(circle at 15% 50%, rgba(24, 90, 106, 0.08), transparent 25%),
@@ -108,6 +107,7 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             border: none;
             cursor: pointer;
+            box-sizing: border-box;
         }
 
         .btn-primary {
@@ -122,7 +122,7 @@
         }
 
         .btn-primary:active {
-            transform: scale(0.96); /* Touch interaction scaling */
+            transform: scale(0.96); 
         }
 
         .btn-outline {
@@ -193,6 +193,7 @@
             max-width: 800px;
             justify-content: space-around;
             flex-wrap: wrap;
+            box-sizing: border-box;
         }
 
         .contact-item {
@@ -200,6 +201,7 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            text-align: center;
         }
 
         .contact-label {
@@ -222,6 +224,81 @@
             color: var(--primary-teal);
         }
 
+        /* =========================================
+           MOBILE RESPONSIVENESS (Media Queries)
+           ========================================= */
+        @media (max-width: 850px) {
+            /* Adjust the Header for smaller screens */
+            header {
+                flex-direction: column;
+                padding: 15px;
+                margin: 10px;
+                gap: 15px;
+            }
+
+            .brand img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .brand-title {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .nav-links a {
+                margin: 0 5px;
+                font-size: 14px;
+            }
+
+            .header-btn {
+                display: none; /* Hides the top right booking button on mobile to save space */
+            }
+
+            /* Adjust the Hero Section */
+            .hero {
+                padding: 20px 5%;
+                margin-top: 10px;
+            }
+
+            .hero-card {
+                padding: 40px 20px;
+                border-radius: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem; /* Shrinks the massive text */
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+            }
+
+            /* Stacks the buttons vertically on mobile */
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
+            /* Stacks the contact information vertically on mobile */
+            .contact-bar {
+                flex-direction: column;
+                padding: 25px 20px;
+                gap: 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -229,7 +306,6 @@
     <!-- Glass Header -->
     <header class="glass-panel">
         <a href="#" class="brand">
-            <!-- Using the exact logo file you referenced -->
             <img src="1000727443.png" alt="Vighnaharta HiTech Dental Care Logo">
             <div class="brand-text">
                 <span class="brand-title">Vighnaharta</span>
@@ -241,7 +317,7 @@
             <a href="#services">Clinical Services</a>
             <a href="#cases">Case Gallery</a>
         </nav>
-        <a href="#book" class="btn btn-primary">Book Appointment</a>
+        <a href="#book" class="btn btn-primary header-btn">Book Appointment</a>
     </header>
 
     <!-- Hero Section -->
@@ -267,7 +343,6 @@
                 </div>
                 <div class="contact-item">
                     <span class="contact-label">Get Directions</span>
-                    <!-- Integrated Google Maps Share Link -->
                     <a href="https://maps.app.goo.gl/DQdhGTWKQDcmH6zDA?g_st=ac" target="_blank" class="contact-value" style="color: var(--accent-blue); text-decoration: underline;">Open in Maps</a>
                 </div>
             </div>
