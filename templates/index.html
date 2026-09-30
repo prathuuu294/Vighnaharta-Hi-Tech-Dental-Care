@@ -318,46 +318,55 @@
         .service-card i { font-size: 40px; color: var(--glow-cyan); text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
         .service-card h3 { margin: 0; font-size: 1.2rem; font-weight: 500; }
         
-                /* --- Testimonials Infinite Slider --- */
+            /* --- Testimonials Infinite Slider & Cropping --- */
         .testimonials-slider {
             width: 100%;
             overflow: hidden;
             position: relative;
             padding: 20px 0;
-            /* Creates a premium fade effect on the left and right edges */
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
         .testimonials-track {
-            display: flex;
-            gap: 30px;
-            width: max-content;
-            padding-right: 30px; /* Ensures the loop math works perfectly */
-            /* 25s determines how fast it slides. Change this number to speed it up or slow it down */
+            display: flex; gap: 30px; width: max-content; padding-right: 30px;
             animation: infiniteScroll 25s linear infinite;
         }
 
-         /* Pauses the slider when someone taps, hovers, or clicks a video */
-        .testimonials-slider:hover .testimonials-track,
-        .testimonials-slider:active .testimonials-track,
-        .testimonials-slider:focus-within .testimonials-track {
-            animation-play-state: paused !important;
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
         }
 
         .testimonial-card {
-            width: 280px; height: 450px; border-radius: 20px; padding: 10px;
-            display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
-            flex-shrink: 0; /* Prevents cards from getting squished on mobile */
+            width: 280px; padding: 10px; border-radius: 20px;
+            flex-shrink: 0; transition: all 0.3s ease;
         }
         
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(225, 48, 108, 0.5); /* Instagram Pink Glow */
-            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.2);
+        /* THIS physically cuts off the white Instagram caption box! */
+        .video-crop-container {
+            width: 100%;
+            height: 450px; /* Uniform height keeps the slider perfectly aligned */
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            background: #000; /* Blends seamlessly with landscape black bars */
         }
-        
-        .testimonial-card iframe { width: 100%; height: 100%; border: none; border-radius: 12px; background: transparent; }
+
+        .video-crop-container iframe {
+            width: 100%;
+            height: 650px; /* Taller than the container to push white space down */
+            position: absolute;
+            top: 0; /* Anchors the video to the top, pushing the caption out the bottom */
+            left: 0; 
+            border: none;
+        }
+
+        /* The invisible shield that intercepts clicks */
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; cursor: pointer; display: block;
+        }
 
         /* --- About/Clinician Section --- */
         .clinician-card {
@@ -588,19 +597,27 @@
         <h2 class="section-title">Happy Smiles, Happy Patients</h2>
         
         <div class="testimonials-slider">
-            <div class="testimonials-track">
+            <div class="testimonials-track" id="sliderTrack">
                 
                 <!-- Set 1 (Dynamic Loop from Database) -->
                 {% for reel in reels %}
-                <div class="testimonial-card glass-panel" ontouchstart="this.parentElement.style.animationPlayState='paused'">
-                    <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                <div class="testimonial-card glass-panel">
+                    <div class="video-crop-container">
+                        <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                        <!-- Invisible shield to control playback -->
+                        <div class="video-overlay" onclick="activateVideo(this)"></div>
+                    </div>
                 </div>
                 {% endfor %}
 
                 <!-- Set 2 (Duplicated Loop for the Seamless Infinite Slider) -->
                 {% for reel in reels %}
-                <div class="testimonial-card glass-panel" ontouchstart="this.parentElement.style.animationPlayState='paused'">
-                    <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                <div class="testimonial-card glass-panel">
+                    <div class="video-crop-container">
+                        <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                        <!-- Invisible shield to control playback -->
+                        <div class="video-overlay" onclick="activateVideo(this)"></div>
+                    </div>
                 </div>
                 {% endfor %}
                 
@@ -682,6 +699,32 @@
 
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
+
+        // --- Video Manager (Stops overlapping audio & pauses slider) ---
+        function activateVideo(clickedOverlay) {
+            // 1. Pause the slider animation
+            document.getElementById('sliderTrack').style.animationPlayState = 'paused';
+
+            // 2. Find all video containers
+            const allContainers = document.querySelectorAll('.video-crop-container');
+            
+            allContainers.forEach(container => {
+                const iframe = container.querySelector('iframe');
+                const overlay = container.querySelector('.video-overlay');
+                
+                if (overlay !== clickedOverlay) {
+                    // Reset all OTHER videos to stop them from playing
+                    let currentSrc = iframe.src;
+                    iframe.src = currentSrc;
+                    // Bring their protective shield back
+                    overlay.style.display = 'block';
+                }
+            });
+
+            // 3. Remove the shield on the clicked video so the user can interact with it
+            clickedOverlay.style.display = 'none';
+        }
+
 
         // Modal Controls
         function openModal() {
