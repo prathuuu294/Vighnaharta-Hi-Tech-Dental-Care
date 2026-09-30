@@ -338,19 +338,15 @@
             animation: infiniteScroll 25s linear infinite;
         }
 
-        /* Pauses the slider when someone taps or hovers to watch a video */
+         /* Pauses the slider when someone taps, hovers, or clicks a video */
         .testimonials-slider:hover .testimonials-track,
-        .testimonials-slider:active .testimonials-track {
-            animation-play-state: paused;
-        }
-
-        @keyframes infiniteScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
+        .testimonials-slider:active .testimonials-track,
+        .testimonials-slider:focus-within .testimonials-track {
+            animation-play-state: paused !important;
         }
 
         .testimonial-card {
-            width: 320px; height: 560px; border-radius: 20px; padding: 15px;
+            width: 280px; height: 450px; border-radius: 20px; padding: 10px;
             display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
             flex-shrink: 0; /* Prevents cards from getting squished on mobile */
         }
@@ -596,15 +592,15 @@
                 
                 <!-- Set 1 (Dynamic Loop from Database) -->
                 {% for reel in reels %}
-                <div class="testimonial-card glass-panel">
-                    <iframe src="{{ reel.reel_url }}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                <div class="testimonial-card glass-panel" ontouchstart="this.parentElement.style.animationPlayState='paused'">
+                    <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
                 </div>
                 {% endfor %}
 
                 <!-- Set 2 (Duplicated Loop for the Seamless Infinite Slider) -->
                 {% for reel in reels %}
-                <div class="testimonial-card glass-panel">
-                    <iframe src="{{ reel.reel_url }}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+                <div class="testimonial-card glass-panel" ontouchstart="this.parentElement.style.animationPlayState='paused'">
+                    <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
                 </div>
                 {% endfor %}
                 
