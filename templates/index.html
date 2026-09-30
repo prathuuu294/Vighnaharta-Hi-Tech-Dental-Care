@@ -466,6 +466,41 @@
             .clinician-info h2 { font-size: 2rem; }
             .features-grid { margin-top: 0; }
         }
+
+        /* --- Booking Modal CSS --- */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            width: 90%; max-width: 400px; padding: 35px 25px;
+            border-radius: 25px; text-align: center; position: relative;
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalPop { 
+            from { opacity: 0; transform: scale(0.8); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 28px;
+            color: var(--text-soft); cursor: pointer; transition: color 0.3s;
+        }
+        .close-btn:hover { color: var(--glow-cyan); }
+        .booking-form { display: flex; flex-direction: column; gap: 15px; }
+        .booking-form input, .booking-form textarea {
+            width: 100%; padding: 15px; border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white; font-family: 'Poppins', sans-serif; font-size: 1rem;
+            box-sizing: border-box; transition: all 0.3s;
+        }
+        .booking-form input:focus, .booking-form textarea:focus {
+            outline: none; border-color: var(--glow-cyan); box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -501,7 +536,7 @@
             <a href="#clinician" onclick="toggleMenu()">Know Your Clinician</a>
         </nav>
         
-        <a href="#clinician" class="btn btn-primary header-btn">Book Appointment</a>
+        <a href="javascript:void(0)" onclick="openModal()" class="btn btn-primary header-btn">Book Appointment</a>
     </header>
 
     <!-- Hero Section -->
@@ -510,7 +545,7 @@
             <h1>Advanced Clinical Care.<br><span>Designed for Comfort.</span></h1>
             <p>Experience pain-free, modern dentistry in Ambajogai. Led by NHDC alumnus Dr. Pranav Umarane, we bring cutting-edge technology and precision diagnostics to restore your perfect smile.</p>
             <div class="hero-actions">
-                <a href="#clinician" class="btn btn-primary">Schedule Consultation</a>
+                <a href="javascript:void(0)" onclick="openModal()" class="btn btn-primary">Schedule Consultation</a>
                 <a href="#services" class="btn btn-outline">Explore Treatments</a>
             </div>
         </div>
@@ -637,6 +672,37 @@
 
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
+
+        // Modal Controls
+        function openModal() {
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+        // Close modal if user clicks outside the glass box
+        window.onclick = function(event) {
+            let modal = document.getElementById('bookingModal');
+            if (event.target == modal) { modal.style.display = 'none'; }
+        }
+
     </script>
+
+    <!-- Glassmorphism Booking Modal -->
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="margin-top: 0; color: var(--glow-cyan);">Request Consultation</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 25px;">Enter your details. Our clinic will contact you shortly to confirm your appointment.</p>
+            
+            <form action="/book" method="POST" class="booking-form">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="tel" name="phone" placeholder="Phone Number (e.g. 9876543210)" required>
+                <textarea name="complaint" placeholder="Briefly describe your dental issue (e.g. Toothache, Aligners)..." rows="3" required></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
