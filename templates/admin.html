@@ -5,126 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinic Dashboard | Vighnaharta Dental</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; padding: 20px 5%; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px; margin-top: 20px; }
-        .header h2 { margin: 0; color: #00e5ff; }
-        .btn-logout { background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 15px; border-radius: 8px; text-decoration: none; transition: 0.3s; }
-        .btn-logout:hover { background: #ff4d4d; color: white; }
+        /* --- Base Setup & Animations --- */
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; overflow-x: hidden; position: relative; min-height: 100vh; padding-bottom: 50px; }
         
-        /* Table Styling */
-        .table-container { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; min-width: 600px; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        th { background: rgba(0, 229, 255, 0.1); color: #00e5ff; font-weight: 600; }
-        td a { color: #00e5ff; text-decoration: none; }
-        td a:hover { text-decoration: underline; }
+        .dental-anim { position: fixed; color: rgba(0, 229, 255, 0.03); z-index: -1; animation: floatUp linear infinite; pointer-events: none; }
+        .tooth-1 { font-size: 120px; left: 5%; bottom: -15%; animation-duration: 25s; }
+        .tooth-2 { font-size: 80px; right: 15%; bottom: -20%; animation-duration: 18s; animation-delay: 2s; }
+        .tooth-3 { font-size: 150px; left: 40%; bottom: -20%; animation-duration: 22s; animation-delay: 7s; }
+        .sparkle-1 { font-size: 40px; right: 5%; top: 20%; animation-duration: 15s; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+
+        /* --- Layout & Header --- */
+        .dashboard-container { max-width: 1200px; margin: 0 auto; padding: 20px 5%; position: relative; z-index: 1; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 0; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+        .brand-wrapper { display: flex; align-items: center; gap: 15px; }
+        .brand-wrapper img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); object-fit: cover; }
+        .brand-text h2 { margin: 0; color: #00e5ff; font-size: 1.8rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
+        .brand-text p { margin: 0; color: #cbd5e1; font-size: 0.9rem; }
+        
+        .btn-logout { background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 20px; border-radius: 8px; text-decoration: none; transition: 0.3s; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .btn-logout:hover { background: #ff4d4d; color: white; box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); transform: translateY(-2px); }
+
+        /* --- Sections & Glass Tables --- */
+        .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .section-header i { color: #00e5ff; font-size: 1.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
+        .section-header h3 { margin: 0; font-size: 1.4rem; font-weight: 600; color: #f8fafc; }
+
+        .table-wrapper { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-bottom: 50px; overflow-x: auto; border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 1px solid rgba(255, 255, 255, 0.2); }
+        table { width: 100%; border-collapse: collapse; min-width: 750px; }
+        th, td { padding: 18px 15px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        th { color: #00e5ff; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { color: #e2e8f0; font-size: 0.95rem; }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
+        td a { color: #00e5ff; text-decoration: none; transition: 0.3s; }
+        td a:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(0,229,255,0.4); }
+
+        /* --- Buttons & Inputs --- */
+        .upload-form { display: flex; gap: 15px; background: rgba(0, 229, 255, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 229, 255, 0.2); margin-bottom: 25px; flex-wrap: wrap; }
+        .upload-form input { flex: 1; min-width: 250px; padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins', sans-serif; transition: 0.3s; }
+        .upload-form input:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 10px rgba(0,229,255,0.2); background: rgba(255,255,255,0.1); }
+        .upload-form button { padding: 12px 30px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0,229,255,0.3); display: flex; align-items: center; gap: 8px; }
+        .upload-form button:hover { background: #33ebff; box-shadow: 0 0 25px rgba(0,229,255,0.5); transform: translateY(-2px); }
+
+        .action-btn { padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; border: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 5px; margin-right: 5px; }
+        .btn-whatsapp { background: #25D366; color: #020617; box-shadow: 0 0 10px rgba(37, 211, 102, 0.3); }
+        .btn-whatsapp:hover { background: #20b858; box-shadow: 0 0 15px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
+        .btn-schedule { background: #00e5ff; color: #020617; box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
+        .btn-schedule:hover { background: #33ebff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
+        
+        .btn-edit { background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-edit:hover { background: rgba(0,229,255,0.1); box-shadow: 0 0 10px rgba(0,229,255,0.2); }
+        
+        .btn-delete { background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-delete:hover { background: #ff4d4d; color: white; box-shadow: 0 0 10px rgba(255, 77, 77, 0.4); }
+
+        .status-scheduled { color: #25D366; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .status-pending { color: #ff9800; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h2>Dr. Pranav's Dashboard</h2>
-        <a href="/logout" class="btn-logout">Logout</a>
-    </div>
-    
-    <h3 style="margin-bottom: 15px;">Patient Consultation Leads</h3>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Patient Name</th>
-                    <th>Phone Number</th>
-                    <th>Chief Complaint</th>
-                    <th>Status & Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for lead in leads %}
-                <tr>
-                    <td>#{{ lead.id }}</td>
-                    <td>{{ lead.name }}</td>
-                    <td><a href="tel:{{ lead.phone }}">{{ lead.phone }}</a></td>
-                    <td>{{ lead.complaint }}</td>
-                    <td>
-                        {% if lead.appointment_date %}
-                            <div style="color: #25D366; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
-                                <span>Scheduled: {{ lead.appointment_date }}</span>
-                                <!-- New Edit Button -->
-                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" style="background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 3px 8px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; transition: 0.3s;">✏️ Edit</button>
-                            </div>
-                            <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" style="background: #25D366; color: #020617; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px; margin-bottom: 5px;">WhatsApp Patient</button>
-                        {% else %}
-                            <div style="color: #ff9800; font-size: 0.9rem; margin-bottom: 8px;">Pending</div>
-                            <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" style="background: #00e5ff; color: #020617; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px; margin-bottom: 5px;">Schedule</button>
-                        {% endif %}
-                        <a href="/delete_lead/{{ lead.id }}" style="color: #ff4d4d; border: 1px solid #ff4d4d; padding: 4px 8px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; display: inline-block;" onclick="return confirm('Delete this lead forever?')">Delete</a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 30px; color: #cbd5e1;">No patient leads yet.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <!-- Add this right below your leads table closing </div> -->
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; margin-bottom: 15px;">
-        <h3 style="margin: 0;">Instagram Reels Manager</h3>
-    </div>
-    
-    <!-- Upload Form -->
-    <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <form action="/add_reel" method="POST" style="display: flex; gap: 10px;">
-            <input type="url" name="reel_url" placeholder="Paste Instagram Reel Link here..." required 
-                   style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-family: 'Poppins', sans-serif;">
-            <button type="submit" style="padding: 12px 25px; background: #00e5ff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Add Reel</button>
-        </form>
-    </div>
+    <!-- Ambient Dental Background -->
+    <i class="fas fa-tooth dental-anim tooth-1"></i>
+    <i class="fas fa-tooth dental-anim tooth-2"></i>
+    <i class="fas fa-tooth dental-anim tooth-3"></i>
+    <i class="fas fa-magic dental-anim sparkle-1"></i>
 
-    <!-- Active Reels Table -->
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Video Preview Link</th>
-                    <th>Date Added</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reel in reels %}
-                <tr>
-                    <td>#{{ reel.id }}</td>
-                    <td><a href="{{ reel.reel_url }}" target="_blank">View Embedded Reel</a></td>
-                    <td>{{ reel.date_added.strftime('%Y-%m-%d') }}</td>
-                    <td><a href="/delete_reel/{{ reel.id }}" style="color: #ff4d4d; border: 1px solid #ff4d4d; padding: 5px 10px; border-radius: 5px;">Delete</a></td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 30px; color: #cbd5e1;">No reels uploaded yet.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="dashboard-container">
+        
+        <!-- Header Space -->
+        <div class="header">
+            <div class="brand-wrapper">
+                <img src="https://raw.githubusercontent.com/prathuuu294/Vighnaharta-Hi-Tech-Dental-Care/main/1000727443.png" alt="Logo">
+                <div class="brand-text">
+                    <h2>Vighnaharta Dental</h2>
+                    <p>Clinical Command Center | Welcome, Dr. Pranav</p>
+                </div>
+            </div>
+            <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Secure Logout</a>
+        </div>
+
+        <!-- Leads CRM Space -->
+        <div class="section-header">
+            <i class="fas fa-hospital-user"></i>
+            <h3>Patient Consultation Leads</h3>
+        </div>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patient Name</th>
+                        <th>Phone Number</th>
+                        <th>Chief Complaint</th>
+                        <th>Status & Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                    <tr>
+                        <td>#{{ lead.id }}</td>
+                        <td><strong>{{ lead.name }}</strong></td>
+                        <td><a href="tel:{{ lead.phone }}"><i class="fas fa-phone-alt" style="font-size: 0.8rem; margin-right: 5px;"></i>{{ lead.phone }}</a></td>
+                        <td>{{ lead.complaint }}</td>
+                        <td>
+                            {% if lead.appointment_date %}
+                                <div class="status-scheduled">
+                                    <span><i class="fas fa-calendar-check"></i> {{ lead.appointment_date }}</span>
+                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="btn-edit"><i class="fas fa-pencil-alt"></i> Edit</button>
+                                </div>
+                                <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" class="action-btn btn-whatsapp"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> WhatsApp Patient</button>
+                            {% else %}
+                                <div class="status-pending"><i class="fas fa-clock"></i> Pending Schedule</div>
+                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn btn-schedule"><i class="fas fa-calendar-plus"></i> Schedule Date</button>
+                            {% endif %}
+                            <a href="/delete_lead/{{ lead.id }}" class="btn-delete" onclick="return confirm('Delete this patient lead forever?')"><i class="fas fa-trash-alt"></i> Delete</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-inbox" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
+                            No patient leads yet. Share your website link to get started!
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Instagram Reels Manager -->
+        <div class="section-header">
+            <i class="fab fa-instagram"></i>
+            <h3>Instagram Reels Manager</h3>
+        </div>
+
+        <div class="table-wrapper">
+            <form action="/add_reel" method="POST" class="upload-form">
+                <input type="url" name="reel_url" placeholder="Paste Instagram Reel Link here..." required>
+                <button type="submit"><i class="fas fa-cloud-upload-alt"></i> Publish Reel</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Video Preview Link</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reel in reels %}
+                    <tr>
+                        <td>#{{ reel.id }}</td>
+                        <td><a href="{{ reel.reel_url }}" target="_blank"><i class="fas fa-external-link-alt" style="margin-right: 5px;"></i> View Embedded Reel</a></td>
+                        <td>{{ reel.date_added.strftime('%b %d, %Y') }}</td>
+                        <td><a href="/delete_reel/{{ reel.id }}" class="btn-delete" onclick="return confirm('Remove this reel from the homepage slider?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <i class="fas fa-video-slash" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
+                            No reels uploaded yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Hidden Schedule Modal -->
-    <div id="scheduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-        <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); width: 90%; max-width: 350px; text-align: center;">
-            <h3 style="color: #00e5ff; margin-top: 0;">Schedule Appointment</h3>
-            <p id="modalPatientName" style="margin-bottom: 20px; font-weight: bold;"></p>
+    <div id="scheduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+        <div style="background: rgba(255,255,255,0.05); padding: 35px 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3); width: 90%; max-width: 380px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
+            <i class="fas fa-calendar-alt" style="font-size: 2.5rem; color: #00e5ff; margin-bottom: 15px; text-shadow: 0 0 15px rgba(0,229,255,0.5);"></i>
+            <h3 style="color: #00e5ff; margin-top: 0; font-size: 1.4rem;">Schedule Appointment</h3>
+            <p id="modalPatientName" style="margin-bottom: 25px; font-weight: 500; color: #e2e8f0;"></p>
+            
             <form id="scheduleForm" method="POST">
-                <input type="datetime-local" name="appointment_date" required style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; color-scheme: dark; font-family: 'Poppins', sans-serif;">
-                <button type="submit" style="width: 100%; padding: 12px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">Confirm Date</button>
-                <button type="button" onclick="closeScheduleModal()" style="width: 100%; padding: 10px; background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; border-radius: 8px; cursor: pointer;">Cancel</button>
+                <input type="datetime-local" name="appointment_date" required style="width: 100%; padding: 14px; margin-bottom: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; color-scheme: dark; font-family: 'Poppins', sans-serif; box-sizing: border-box;">
+                
+                <button type="submit" class="action-btn btn-schedule" style="width: 100%; padding: 14px; justify-content: center; font-size: 1rem; margin-bottom: 12px; margin-right: 0;"><i class="fas fa-check"></i> Confirm Date</button>
+                <button type="button" onclick="closeScheduleModal()" class="btn-delete" style="width: 100%; padding: 12px; justify-content: center; font-size: 1rem; box-sizing: border-box; margin: 0;"><i class="fas fa-times"></i> Cancel</button>
             </form>
         </div>
     </div>
 
+    <!-- JavaScript Engines -->
     <script>
         function openScheduleModal(leadId, patientName) {
             document.getElementById('modalPatientName').innerText = "For: " + patientName;
@@ -137,7 +208,6 @@
         }
 
         function sendWhatsApp(name, phone, date) {
-            // Cleans phone number and adds country code for Indian numbers
             let cleanPhone = phone.replace(/\D/g, '');
             if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
 
@@ -147,6 +217,5 @@
             window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
         }
     </script>
-
 </body>
 </html>
