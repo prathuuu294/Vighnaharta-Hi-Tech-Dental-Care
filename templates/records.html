@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Records | Vighnaharta Dental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; padding: 20px 5%; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px; margin-top: 20px; }
+        .btn-back { background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 8px 15px; border-radius: 8px; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-back:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
+        
+        .upload-form { display: flex; gap: 15px; background: rgba(255, 255, 255, 0.03); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 30px; flex-wrap: wrap; align-items: center; }
+        .upload-form input[type="file"] { flex: 1; padding: 12px; border-radius: 8px; border: 1px dashed rgba(0, 229, 255, 0.5); background: rgba(0, 0, 0, 0.2); color: white; }
+        .upload-form button { padding: 12px 25px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+        .upload-form button:hover { background: #33ebff; transform: translateY(-2px); }
+
+        .table-wrapper { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        th { color: #00e5ff; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+        td a { color: #00e5ff; text-decoration: none; }
+        td a:hover { text-decoration: underline; text-shadow: 0 0 10px rgba(0,229,255,0.4); }
+        .btn-delete { color: #ff4d4d; border: 1px solid #ff4d4d; padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
+        .btn-delete:hover { background: #ff4d4d; color: white; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h2 style="margin: 0; color: #00e5ff;">Clinical Records</h2>
+            <p style="margin: 5px 0 0 0; color: #cbd5e1;">Patient: <strong>{{ lead.name }}</strong> | Phone: {{ lead.phone }}</p>
+        </div>
+        <a href="/admin" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+
+    <form action="/upload_record/{{ lead.id }}" method="POST" enctype="multipart/form-data" class="upload-form">
+        <input type="file" name="file" accept="image/*,application/pdf,.dcm" required>
+        <button type="submit"><i class="fas fa-cloud-upload-alt"></i> Secure Upload to Drive</button>
+    </form>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Date Uploaded</th>
+                    <th>View File</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td><i class="fas fa-file-medical" style="color: #cbd5e1; margin-right: 8px;"></i> {{ record.file_name }}</td>
+                    <td>{{ record.upload_date.strftime('%b %d, %Y') }}</td>
+                    <td><a href="{{ record.view_link }}" target="_blank"><i class="fas fa-external-link-alt"></i> Open Record</a></td>
+                    <td><a href="/delete_record/{{ record.id }}" class="btn-delete" onclick="return confirm('Permanently delete this record from Google Drive?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 30px; color: #94a3b8;">No records uploaded for this patient yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
