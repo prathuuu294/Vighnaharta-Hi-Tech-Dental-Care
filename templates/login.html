@@ -5,26 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | Vighnaharta Dental</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .login-card { background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 20px; text-align: center; width: 90%; max-width: 350px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
-        h2 { color: #00e5ff; margin-top: 0; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.1); color: white; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-        input:focus { outline: none; border-color: #00e5ff; }
-        button { width: 100%; padding: 12px; margin-top: 15px; border-radius: 8px; border: none; background: #00e5ff; color: #020617; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif;}
-        button:hover { box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); transform: translateY(-2px); }
-        .error { color: #ff4d4d; font-size: 0.9rem; margin-bottom: 10px; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative; }
+        
+        /* --- Ambient Dental Animations --- */
+        .dental-anim { position: absolute; color: rgba(0, 229, 255, 0.05); z-index: -1; animation: floatUp linear infinite; }
+        .tooth-1 { font-size: 100px; left: 15%; bottom: -15%; animation-duration: 15s; }
+        .tooth-2 { font-size: 150px; right: 10%; bottom: -20%; animation-duration: 20s; animation-delay: 3s; }
+        .sparkle-1 { font-size: 50px; left: 25%; top: 15%; animation-duration: 12s; }
+        .sparkle-2 { font-size: 40px; right: 25%; top: 30%; animation-duration: 14s; animation-delay: 5s; }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Premium Glass Card --- */
+        .login-card { background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 25px; text-align: center; width: 90%; max-width: 380px; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 1; box-shadow: 0 25px 45px rgba(0,0,0,0.5); }
+        
+        .logo { width: 75px; height: 75px; border-radius: 50%; box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); margin-bottom: 15px; border: 2px solid rgba(0, 229, 255, 0.6); object-fit: cover; }
+        h2 { color: #00e5ff; margin: 0 0 5px 0; font-size: 1.6rem; letter-spacing: 1px; }
+        h4 { color: white; margin: 0 0 5px 0; font-size: 1.2rem; font-weight: 500; }
+        p.subtitle { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 25px; }
+        
+        input { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); color: white; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: 0.3s; }
+        input:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); background: rgba(255, 255, 255, 0.1); }
+        
+        button { width: 100%; padding: 14px; margin-top: 15px; border-radius: 10px; border: none; background: #00e5ff; color: #020617; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+        button:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); transform: translateY(-3px); background: #33ebff; }
+        
+        .error { color: #ff4d4d; font-size: 0.9rem; margin-bottom: 15px; background: rgba(255,77,77,0.1); padding: 8px; border-radius: 5px; }
+        .success { color: #25D366; font-size: 0.9rem; margin-bottom: 15px; background: rgba(37,211,102,0.1); padding: 8px; border-radius: 5px; }
+        
+        .forgot-btn { display: inline-block; margin-top: 25px; font-size: 0.85rem; color: #94a3b8; text-decoration: none; transition: 0.3s; border-bottom: 1px dashed transparent; }
+        .forgot-btn:hover { color: #00e5ff; border-bottom: 1px dashed #00e5ff; }
     </style>
 </head>
 <body>
+    <!-- Background Dental Animations -->
+    <i class="fas fa-tooth dental-anim tooth-1"></i>
+    <i class="fas fa-tooth dental-anim tooth-2"></i>
+    <i class="fas fa-magic dental-anim sparkle-1"></i>
+    <i class="fas fa-star dental-anim sparkle-2"></i>
+
     <div class="login-card">
-        <h2>Admin Portal</h2>
-        {% if error %} <div class="error">{{ error }}</div> {% endif %}
+        <img src="https://raw.githubusercontent.com/prathuuu294/Vighnaharta-Hi-Tech-Dental-Care/main/1000727443.png" alt="Logo" class="logo">
+        <h2>Vighnaharta Dental</h2>
+        <h4>Welcome Dr. Pranav</h4>
+        <p class="subtitle">Log into your Hi-Tech Dashboard</p>
+        
+        {% if error %} <div class="error"><i class="fas fa-exclamation-circle"></i> {{ error }}</div> {% endif %}
+        {% if success %} <div class="success"><i class="fas fa-check-circle"></i> {{ success }}</div> {% endif %}
+        
         <form action="/login" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Secure Login</button>
         </form>
+        
+        <a href="/reset" class="forgot-btn">Forgot Password?</a>
     </div>
 </body>
 </html>
