@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password | Vighnaharta Dental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (Uses the exact same styling as login.html for seamless transition) */
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative; }
+        .dental-anim { position: absolute; color: rgba(0, 229, 255, 0.05); z-index: -1; animation: floatUp linear infinite; }
+        .tooth-1 { font-size: 100px; left: 15%; bottom: -15%; animation-duration: 15s; }
+        .tooth-2 { font-size: 150px; right: 10%; bottom: -20%; animation-duration: 20s; animation-delay: 3s; }
+        .sparkle-1 { font-size: 50px; left: 25%; top: 15%; animation-duration: 12s; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+        .login-card { background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 25px; text-align: center; width: 90%; max-width: 380px; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.2); border-left: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 1; box-shadow: 0 25px 45px rgba(0,0,0,0.5); }
+        h2 { color: #00e5ff; margin: 0 0 5px 0; font-size: 1.6rem; letter-spacing: 1px; }
+        p.subtitle { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 25px; line-height: 1.5; }
+        input { width: 100%; padding: 14px; margin: 8px 0; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.05); color: white; box-sizing: border-box; font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: 0.3s; }
+        input:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); background: rgba(255, 255, 255, 0.1); }
+        button { width: 100%; padding: 14px; margin-top: 15px; border-radius: 10px; border: none; background: #00e5ff; color: #020617; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
+        button:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); transform: translateY(-3px); background: #33ebff; }
+        .error { color: #ff4d4d; font-size: 0.9rem; margin-bottom: 15px; background: rgba(255,77,77,0.1); padding: 8px; border-radius: 5px; }
+        .forgot-btn { display: inline-block; margin-top: 25px; font-size: 0.85rem; color: #94a3b8; text-decoration: none; transition: 0.3s; border-bottom: 1px dashed transparent; }
+        .forgot-btn:hover { color: #00e5ff; border-bottom: 1px dashed #00e5ff; }
+    </style>
+</head>
+<body>
+    <i class="fas fa-tooth dental-anim tooth-1"></i>
+    <i class="fas fa-tooth dental-anim tooth-2"></i>
+    <i class="fas fa-magic dental-anim sparkle-1"></i>
+
+    <div class="login-card">
+        <h2>Reset Password</h2>
+        <p class="subtitle">Enter the Clinic Master Key to securely authorize your new password.</p>
+        
+        {% if error %} <div class="error"><i class="fas fa-exclamation-circle"></i> {{ error }}</div> {% endif %}
+        
+        <form action="/reset" method="POST">
+            <input type="text" name="username" placeholder="Username (drpranav)" required>
+            <input type="password" name="security_key" placeholder="Clinic Master Key" required>
+            <input type="password" name="new_password" placeholder="Create New Password" required>
+            <button type="submit">Update Password</button>
+        </form>
+        
+        <a href="/login" class="forgot-btn"><i class="fas fa-arrow-left"></i> Back to Login</a>
+    </div>
+</body>
+</html>
