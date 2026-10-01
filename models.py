@@ -23,3 +23,11 @@ class InstagramReel(db.Model):
     reel_url = db.Column(db.String(500), nullable=False) # e.g., 'https://www.instagram.com/reel/C-VfP94P9xH/'
     is_active = db.Column(db.Boolean, default=True)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
+
+class PatientRecord(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    lead_id = db.Column(db.Integer, nullable=False)
+    file_name = db.Column(db.String(255), nullable=False)
+    drive_file_id = db.Column(db.String(255), nullable=False)
+    view_link = db.Column(db.String(500), nullable=False)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
