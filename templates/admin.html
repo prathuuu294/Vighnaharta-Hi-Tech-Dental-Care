@@ -112,20 +112,25 @@
                         <td><a href="tel:{{ lead.phone }}"><i class="fas fa-phone-alt" style="font-size: 0.8rem; margin-right: 5px;"></i>{{ lead.phone }}</a></td>
                         <td>{{ lead.complaint }}</td>
                         <td>
-                            <!-- NEW CLINICAL RECORDS BUTTON -->
+                            <!-- Clinical Records Button -->
                             <a href="/records/{{ lead.id }}" class="action-btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; display: block; text-align: center; margin-bottom: 10px;"><i class="fas fa-folder-open"></i> Clinical Records</a>
 
                             {% if lead.appointment_date %}
                                 <div class="status-scheduled">
                                     <span><i class="fas fa-calendar-check"></i> {{ lead.appointment_date }}</span>
-                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="btn-edit"><i class="fas fa-pencil-alt"></i> Edit</button>
                                 </div>
-                                <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" class="action-btn btn-whatsapp"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> WhatsApp Patient</button>
+                                <div style="display: flex; flex-direction: column; gap: 6px;">
+                                    <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" class="action-btn btn-whatsapp" style="width: 100%; justify-content: center; margin: 0;"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> WhatsApp Patient</button>
+                                    
+                                    <!-- NEW NEXT APPOINTMENT BUTTON -->
+                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn" style="width: 100%; justify-content: center; margin: 0; background: transparent; border: 1px solid #00e5ff; color: #00e5ff;"><i class="fas fa-calendar-plus"></i> Next Appointment</button>
+                                </div>
                             {% else %}
                                 <div class="status-pending"><i class="fas fa-clock"></i> Pending Schedule</div>
-                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn btn-schedule"><i class="fas fa-calendar-plus"></i> Schedule Date</button>
+                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn btn-schedule" style="width: 100%; justify-content: center; margin: 0;"><i class="fas fa-calendar-plus"></i> Schedule Date</button>
                             {% endif %}
-                            <a href="/delete_lead/{{ lead.id }}" class="btn-delete" onclick="return confirm('Delete this patient lead forever?')"><i class="fas fa-trash-alt"></i> Delete</a>
+                            
+                            <a href="/delete_lead/{{ lead.id }}" class="btn-delete" style="width: 100%; justify-content: center; box-sizing: border-box; margin-top: 6px;" onclick="return confirm('Delete this patient lead forever?')"><i class="fas fa-trash-alt"></i> Delete</a>
                         </td>
                     </tr>
                     {% else %}
