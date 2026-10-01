@@ -318,51 +318,55 @@
         .service-card i { font-size: 40px; color: var(--glow-cyan); text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
         .service-card h3 { margin: 0; font-size: 1.2rem; font-weight: 500; }
         
-            /* --- Testimonials Infinite Slider & Cropping --- */
+        /* --- Testimonials Swipe Carousel --- */
         .testimonials-slider {
             width: 100%;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             position: relative;
             padding: 20px 0;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            scrollbar-width: thin;
+            scrollbar-color: var(--glow-cyan) rgba(255, 255, 255, 0.05);
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
 
         .testimonials-track {
-            display: flex; gap: 30px; width: max-content; padding-right: 30px;
-            animation: infiniteScroll 25s linear infinite;
-        }
-
-        @keyframes infiniteScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
+            display: flex;
+            gap: 25px;
+            width: max-content;
+            padding: 0 20px;
         }
 
         .testimonial-card {
-            width: 280px; padding: 10px; border-radius: 20px;
-            flex-shrink: 0; transition: all 0.3s ease;
+            width: 280px;
+            padding: 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            transition: all 0.3s ease;
         }
         
-        /* THIS physically cuts off the white Instagram caption box! */
         .video-crop-container {
             width: 100%;
-            height: 450px; /* Uniform height keeps the slider perfectly aligned */
+            height: 450px;
             overflow: hidden;
             position: relative;
             border-radius: 12px;
-            background: #000; /* Blends seamlessly with landscape black bars */
+            background: #000;
         }
 
         .video-crop-container iframe {
             width: 100%;
-            height: 650px; /* Taller than the container to push white space down */
+            height: 650px;
             position: absolute;
-            top: 0; /* Anchors the video to the top, pushing the caption out the bottom */
+            top: 0;
             left: 0; 
             border: none;
         }
 
-        /* The invisible shield that intercepts clicks */
         .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 10; cursor: pointer; display: block;
