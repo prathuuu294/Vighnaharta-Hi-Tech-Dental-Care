@@ -36,6 +36,7 @@
                     <th>Patient Name</th>
                     <th>Phone Number</th>
                     <th>Chief Complaint</th>
+                    <th>Status & Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,10 +46,20 @@
                     <td>{{ lead.name }}</td>
                     <td><a href="tel:{{ lead.phone }}">{{ lead.phone }}</a></td>
                     <td>{{ lead.complaint }}</td>
+                    <td>
+                        {% if lead.appointment_date %}
+                            <div style="color: #25D366; font-size: 0.9rem; margin-bottom: 8px;">Scheduled: {{ lead.appointment_date }}</div>
+                            <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" style="background: #25D366; color: #020617; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px;">WhatsApp Patient</button>
+                        {% else %}
+                            <div style="color: #ff9800; font-size: 0.9rem; margin-bottom: 8px;">Pending</div>
+                            <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" style="background: #00e5ff; color: #020617; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 5px;">Schedule</button>
+                        {% endif %}
+                        <a href="/delete_lead/{{ lead.id }}" style="color: #ff4d4d; border: 1px solid #ff4d4d; padding: 4px 8px; border-radius: 5px; text-decoration: none; font-size: 0.9rem;" onclick="return confirm('Delete this lead forever?')">Delete</a>
+                    </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="4" style="text-align: center; padding: 30px; color: #cbd5e1;">No patient leads yet.</td>
+                    <td colspan="5" style="text-align: center; padding: 30px; color: #cbd5e1;">No patient leads yet.</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -96,6 +107,42 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Hidden Schedule Modal -->
+    <div id="scheduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); width: 90%; max-width: 350px; text-align: center;">
+            <h3 style="color: #00e5ff; margin-top: 0;">Schedule Appointment</h3>
+            <p id="modalPatientName" style="margin-bottom: 20px; font-weight: bold;"></p>
+            <form id="scheduleForm" method="POST">
+                <input type="datetime-local" name="appointment_date" required style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; color-scheme: dark; font-family: 'Poppins', sans-serif;">
+                <button type="submit" style="width: 100%; padding: 12px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">Confirm Date</button>
+                <button type="button" onclick="closeScheduleModal()" style="width: 100%; padding: 10px; background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; border-radius: 8px; cursor: pointer;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openScheduleModal(leadId, patientName) {
+            document.getElementById('modalPatientName').innerText = "For: " + patientName;
+            document.getElementById('scheduleForm').action = "/schedule_lead/" + leadId;
+            document.getElementById('scheduleModal').style.display = 'flex';
+        }
+
+        function closeScheduleModal() {
+            document.getElementById('scheduleModal').style.display = 'none';
+        }
+
+        function sendWhatsApp(name, phone, date) {
+            // Cleans phone number and adds country code for Indian numbers
+            let cleanPhone = phone.replace(/\D/g, '');
+            if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+
+            let message = `Hello ${name},\n\nYour dental consultation with Dr. Pranav at Vighnaharta HiTech Dental Care is successfully scheduled for *${date}*.\n\nPlease reply with:\n1️⃣ To Confirm\n2️⃣ To Request a Date Change\n3️⃣ To Speak with the Clinic\n\nSee you soon!`;
+            
+            let encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
 
 </body>
 </html>
