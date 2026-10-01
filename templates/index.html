@@ -596,14 +596,12 @@
         </div>
     </section>
     
-     <!-- Testimonials Space -->
+    <!-- Testimonials Space -->
     <section id="testimonials" class="section-container reveal">
         <h2 class="section-title">Happy Smiles, Happy Patients</h2>
         
         <div class="testimonials-slider">
             <div class="testimonials-track" id="sliderTrack">
-                
-                <!-- Set 1 (Dynamic Loop from Database) -->
                 {% for reel in reels %}
                 <div class="testimonial-card glass-panel">
                     <div class="video-crop-container">
@@ -612,19 +610,11 @@
                         <div class="video-overlay" onclick="activateVideo(this)"></div>
                     </div>
                 </div>
-                {% endfor %}
-
-                <!-- Set 2 (Duplicated Loop for the Seamless Infinite Slider) -->
-                {% for reel in reels %}
-                <div class="testimonial-card glass-panel">
-                    <div class="video-crop-container">
-                        <iframe src="{{ reel.reel_url }}?hidecaption=true" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
-                        <!-- Invisible shield to control playback -->
-                        <div class="video-overlay" onclick="activateVideo(this)"></div>
-                    </div>
+                {% else %}
+                <div style="text-align: center; width: 100%; padding: 40px; color: var(--text-soft);">
+                    No reels added yet. Add reels from the Admin Dashboard!
                 </div>
                 {% endfor %}
-                
             </div>
         </div>
     </section>
@@ -704,12 +694,8 @@
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
 
-        // --- Video Manager (Stops overlapping audio & pauses slider) ---
+        // --- Video Manager (Stops overlapping audio) ---
         function activateVideo(clickedOverlay) {
-            // 1. Pause the slider animation
-            document.getElementById('sliderTrack').style.animationPlayState = 'paused';
-
-            // 2. Find all video containers
             const allContainers = document.querySelectorAll('.video-crop-container');
             
             allContainers.forEach(container => {
@@ -717,15 +703,14 @@
                 const overlay = container.querySelector('.video-overlay');
                 
                 if (overlay !== clickedOverlay) {
-                    // Reset all OTHER videos to stop them from playing
+                    // Reset all OTHER videos to stop overlapping audio
                     let currentSrc = iframe.src;
                     iframe.src = currentSrc;
-                    // Bring their protective shield back
                     overlay.style.display = 'block';
                 }
             });
 
-            // 3. Remove the shield on the clicked video so the user can interact with it
+            // Unlock the clicked video for interaction
             clickedOverlay.style.display = 'none';
         }
 
