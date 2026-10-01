@@ -127,8 +127,11 @@
             let cleanPhone = phone.replace(/\D/g, '');
             if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
 
-            // Pre-written WhatsApp message with the secure link to the branded PDF
-            let message = `Hello ${patientName},\n\nYour clinical record (*${recordName}*) from Dr. Pranav at Vighnaharta Hi-Tech Dental Care is ready.\n\nYou can securely view and download your official diagnostic PDF report here:\n${reportUrl}\n\nTake care and keep smiling!`;
+            // Direct download link is created by adding ?download=1
+            let directDownloadLink = reportUrl + "?download=1";
+
+            // Pre-written WhatsApp message with the direct download link
+            let message = `Hello ${patientName},\n\nYour clinical diagnostic report (*${recordName}*) from Dr. Pranav at Vighnaharta Hi-Tech Dental Care is ready.\n\nYou can securely download your official PDF report directly by clicking the link below:\n\n${directDownloadLink}\n\nTake care and keep smiling!`;
             
             let encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
