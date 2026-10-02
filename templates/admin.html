@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Base Setup & Animations --- */
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; overflow-x: hidden; position: relative; min-height: 100vh; padding-bottom: 50px; }
-        
         .dental-anim { position: fixed; color: rgba(0, 229, 255, 0.03); z-index: -1; animation: floatUp linear infinite; pointer-events: none; }
         .tooth-1 { font-size: 120px; left: 5%; bottom: -15%; animation-duration: 25s; }
         .tooth-2 { font-size: 80px; right: 15%; bottom: -20%; animation-duration: 18s; animation-delay: 2s; }
@@ -17,19 +15,15 @@
         .sparkle-1 { font-size: 40px; right: 5%; top: 20%; animation-duration: 15s; }
         @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
 
-        /* --- Layout & Header --- */
         .dashboard-container { max-width: 1200px; margin: 0 auto; padding: 20px 5%; position: relative; z-index: 1; }
-        
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 0; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
         .brand-wrapper { display: flex; align-items: center; gap: 15px; }
         .brand-wrapper img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); object-fit: cover; }
         .brand-text h2 { margin: 0; color: #00e5ff; font-size: 1.8rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
         .brand-text p { margin: 0; color: #cbd5e1; font-size: 0.9rem; }
-        
         .btn-logout { background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; color: #ff4d4d; padding: 8px 20px; border-radius: 8px; text-decoration: none; transition: 0.3s; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .btn-logout:hover { background: #ff4d4d; color: white; box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); transform: translateY(-2px); }
 
-        /* --- Sections & Glass Tables --- */
         .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
         .section-header i { color: #00e5ff; font-size: 1.5rem; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
         .section-header h3 { margin: 0; font-size: 1.4rem; font-weight: 600; color: #f8fafc; }
@@ -41,68 +35,41 @@
         td { color: #e2e8f0; font-size: 0.95rem; }
         tr:hover td { background: rgba(255, 255, 255, 0.02); }
         td a { color: #00e5ff; text-decoration: none; transition: 0.3s; }
-        td a:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(0,229,255,0.4); }
 
-        /* --- Buttons & Inputs --- */
         .upload-form { display: flex; gap: 15px; background: rgba(0, 229, 255, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 229, 255, 0.2); margin-bottom: 25px; flex-wrap: wrap; }
         .upload-form input { flex: 1; min-width: 250px; padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-family: 'Poppins', sans-serif; transition: 0.3s; }
-        .upload-form input:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 10px rgba(0,229,255,0.2); background: rgba(255,255,255,0.1); }
         .upload-form button { padding: 12px 30px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0,229,255,0.3); display: flex; align-items: center; gap: 8px; }
-        .upload-form button:hover { background: #33ebff; box-shadow: 0 0 25px rgba(0,229,255,0.5); transform: translateY(-2px); }
 
         .action-btn { padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; border: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 5px; margin-right: 5px; }
         .btn-whatsapp { background: #25D366; color: #020617; box-shadow: 0 0 10px rgba(37, 211, 102, 0.3); }
-        .btn-whatsapp:hover { background: #20b858; box-shadow: 0 0 15px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
         .btn-schedule { background: #00e5ff; color: #020617; box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
-        .btn-schedule:hover { background: #33ebff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
-        
         .btn-edit { background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; }
-        .btn-edit:hover { background: rgba(0,229,255,0.1); box-shadow: 0 0 10px rgba(0,229,255,0.2); }
-        
         .btn-delete { background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; text-decoration: none; padding: 7px 12px; border-radius: 8px; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
-        .btn-delete:hover { background: #ff4d4d; color: white; box-shadow: 0 0 10px rgba(255, 77, 77, 0.4); }
 
-        .status-scheduled { color: #25D366; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .appt-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,229,255,0.2); padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .status-pending { color: #ff9800; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
     </style>
 </head>
 <body>
-    <!-- Ambient Dental Background -->
-    <i class="fas fa-tooth dental-anim tooth-1"></i>
-    <i class="fas fa-tooth dental-anim tooth-2"></i>
-    <i class="fas fa-tooth dental-anim tooth-3"></i>
-    <i class="fas fa-magic dental-anim sparkle-1"></i>
+    <i class="fas fa-tooth dental-anim tooth-1"></i><i class="fas fa-tooth dental-anim tooth-2"></i><i class="fas fa-tooth dental-anim tooth-3"></i><i class="fas fa-magic dental-anim sparkle-1"></i>
 
     <div class="dashboard-container">
-        
-        <!-- Header Space -->
         <div class="header">
             <div class="brand-wrapper">
                 <img src="https://raw.githubusercontent.com/prathuuu294/Vighnaharta-Hi-Tech-Dental-Care/main/1000727443.png" alt="Logo">
-                <div class="brand-text">
-                    <h2>Vighnaharta Dental</h2>
-                    <p>Clinical Command Center | Welcome, Dr. Pranav</p>
-                </div>
+                <div class="brand-text"><h2>Vighnaharta Dental</h2><p>Clinical Command Center | Welcome, Dr. Pranav</p></div>
             </div>
             <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Secure Logout</a>
         </div>
 
-        <!-- Leads CRM Space -->
         <div class="section-header">
-            <i class="fas fa-hospital-user"></i>
-            <h3>Patient Consultation Leads</h3>
+            <i class="fas fa-hospital-user"></i><h3>Patient Consultation Leads</h3>
         </div>
         
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Patient Name</th>
-                        <th>Phone Number</th>
-                        <th>Chief Complaint</th>
-                        <th>Status & Actions</th>
-                    </tr>
+                    <tr><th>ID</th><th>Patient Name</th><th>Phone Number</th><th>Chief Complaint</th><th>Status & Actions</th></tr>
                 </thead>
                 <tbody>
                     {% for lead in leads %}
@@ -112,35 +79,30 @@
                         <td><a href="tel:{{ lead.phone }}"><i class="fas fa-phone-alt" style="font-size: 0.8rem; margin-right: 5px;"></i>{{ lead.phone }}</a></td>
                         <td>{{ lead.complaint }}</td>
                         <td>
-                            <!-- Clinical Records Button -->
-                            <a href="/records/{{ lead.id }}" class="action-btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; display: block; text-align: center; margin-bottom: 10px;"><i class="fas fa-folder-open"></i> Clinical Records</a>
+                            <a href="/records/{{ lead.id }}" class="action-btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; display: block; text-align: center; margin-bottom: 15px;"><i class="fas fa-folder-open"></i> Clinical Records</a>
 
-                             {% if lead.appointment_date %}
-                                <!-- ADDED EDIT BUTTON HERE -->
-                                <div class="status-scheduled" style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
-                                    <span><i class="fas fa-calendar-check"></i> {{ lead.appointment_date }}</span>
-                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
+                            {% if lead.appointments %}
+                                <div style="display: flex; flex-direction: column; width: 100%;">
+                                    {% for appt in lead.appointments %}
+                                    <div class="appt-card">
+                                        <div>
+                                            <div style="color: #00e5ff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">{{ appt.label }}</div>
+                                            <div style="color: #e2e8f0; font-size: 0.85rem;"><i class="fas fa-calendar-check" style="color:#25D366; margin-right:5px;"></i>{{ appt.date_str }}</div>
+                                        </div>
+                                        <div style="display: flex; gap: 5px;">
+                                            <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}', {{ appt.id }})" class="btn-edit" style="padding: 6px; margin:0;" title="Edit Date"><i class="fas fa-edit"></i></button>
+                                            <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ appt.date_str }}', '{{ appt.label }}')" class="btn-action btn-whatsapp" style="padding: 6px; margin:0;" title="WhatsApp Patient"><i class="fab fa-whatsapp"></i></button>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                                
-                                <div style="display: flex; flex-direction: column; gap: 6px;">
-                                    <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" class="action-btn btn-whatsapp" style="width: 100%; justify-content: center; margin: 0;"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> WhatsApp Patient</button>
-                                    
-                                    <!-- NEXT APPOINTMENT BUTTON -->
-                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn" style="width: 100%; justify-content: center; margin: 0; background: transparent; border: 1px solid #00e5ff; color: #00e5ff;"><i class="fas fa-calendar-plus"></i> Next Appointment</button>
-                                </div>
+                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}', null)" class="action-btn" style="width: 100%; justify-content: center; margin: 5px 0 10px 0; background: transparent; border: 1px dashed #00e5ff; color: #00e5ff;"><i class="fas fa-plus"></i> Add Next Appointment</button>
                             {% else %}
                                 <div class="status-pending"><i class="fas fa-clock"></i> Pending Schedule</div>
-                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn btn-schedule" style="width: 100%; justify-content: center; margin: 0;"><i class="fas fa-calendar-plus"></i> Schedule Date</button>
+                                <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}', null)" class="action-btn btn-schedule" style="width: 100%; justify-content: center; margin: 0 0 10px 0;"><i class="fas fa-calendar-plus"></i> Schedule Date</button>
                             {% endif %}
                             
-                            <a href="/delete_lead/{{ lead.id }}" class="btn-delete" style="width: 100%; justify-content: center; box-sizing: border-box; margin-top: 6px;" onclick="return confirm('Delete this patient lead forever?')"><i class="fas fa-trash-alt"></i> Delete</a>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-inbox" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
-                            No patient leads yet. Share your website link to get started!
+                            <a href="/delete_lead/{{ lead.id }}" class="btn-delete" style="width: 100%; justify-content: center; box-sizing: border-box;" onclick="return confirm('Delete this patient lead forever?')"><i class="fas fa-trash-alt"></i> Delete Patient</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -148,27 +110,14 @@
             </table>
         </div>
 
-        <!-- Instagram Reels Manager -->
-        <div class="section-header">
-            <i class="fab fa-instagram"></i>
-            <h3>Instagram Reels Manager</h3>
-        </div>
-
+        <div class="section-header"><i class="fab fa-instagram"></i><h3>Instagram Reels Manager</h3></div>
         <div class="table-wrapper">
             <form action="/add_reel" method="POST" class="upload-form">
                 <input type="url" name="reel_url" placeholder="Paste Instagram Reel Link here..." required>
                 <button type="submit"><i class="fas fa-cloud-upload-alt"></i> Publish Reel</button>
             </form>
-
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Video Preview Link</th>
-                        <th>Date Added</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>ID</th><th>Video Preview Link</th><th>Date Added</th><th>Action</th></tr></thead>
                 <tbody>
                     {% for reel in reels %}
                     <tr>
@@ -177,13 +126,6 @@
                         <td>{{ reel.date_added.strftime('%b %d, %Y') }}</td>
                         <td><a href="/delete_reel/{{ reel.id }}" class="btn-delete" onclick="return confirm('Remove this reel from the homepage slider?')"><i class="fas fa-trash-alt"></i> Delete</a></td>
                     </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">
-                            <i class="fas fa-video-slash" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
-                            No reels uploaded yet.
-                        </td>
-                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -191,46 +133,37 @@
     </div>
 
     <!-- Hidden Schedule Modal -->
-    <div id="scheduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
-        <div style="background: rgba(255,255,255,0.05); padding: 35px 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3); width: 90%; max-width: 380px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
-            <i class="fas fa-calendar-alt" style="font-size: 2.5rem; color: #00e5ff; margin-bottom: 15px; text-shadow: 0 0 15px rgba(0,229,255,0.5);"></i>
-            <h3 style="color: #00e5ff; margin-top: 0; font-size: 1.4rem;">Schedule Appointment</h3>
+    <div id="scheduleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
+        <div style="background: rgba(255,255,255,0.05); padding: 35px 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); width: 90%; max-width: 380px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
+            <i class="fas fa-calendar-alt" style="font-size: 2.5rem; color: #00e5ff; margin-bottom: 15px;"></i>
+            <h3 style="color: #00e5ff; margin-top: 0; font-size: 1.4rem;">Schedule Date</h3>
             <p id="modalPatientName" style="margin-bottom: 25px; font-weight: 500; color: #e2e8f0;"></p>
-            
             <form id="scheduleForm" method="POST">
-                
                 <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                     <input type="date" name="appt_date" required style="width: 50%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; color-scheme: dark; font-family: 'Poppins', sans-serif; box-sizing: border-box;">
-                    
                     <input type="time" name="appt_time" required style="width: 50%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; color-scheme: dark; font-family: 'Poppins', sans-serif; box-sizing: border-box;">
                 </div>
-                
-                <button type="submit" class="action-btn btn-schedule" style="width: 100%; padding: 14px; justify-content: center; font-size: 1rem; margin-bottom: 12px; margin-right: 0;"><i class="fas fa-check"></i> Confirm Date</button>
+                <button type="submit" class="action-btn btn-schedule" style="width: 100%; padding: 14px; justify-content: center; font-size: 1rem; margin-bottom: 12px; margin-right: 0;"><i class="fas fa-check"></i> Save Date</button>
                 <button type="button" onclick="closeScheduleModal()" class="btn-delete" style="width: 100%; padding: 12px; justify-content: center; font-size: 1rem; box-sizing: border-box; margin: 0;"><i class="fas fa-times"></i> Cancel</button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript Engines -->
     <script>
-        function openScheduleModal(leadId, patientName) {
+        function openScheduleModal(leadId, patientName, apptId = null) {
             document.getElementById('modalPatientName').innerText = "For: " + patientName;
-            document.getElementById('scheduleForm').action = "/schedule_lead/" + leadId;
+            let actionUrl = "/schedule_lead/" + leadId;
+            if (apptId) { actionUrl += "?appt_id=" + apptId; }
+            document.getElementById('scheduleForm').action = actionUrl;
             document.getElementById('scheduleModal').style.display = 'flex';
         }
+        function closeScheduleModal() { document.getElementById('scheduleModal').style.display = 'none'; }
 
-        function closeScheduleModal() {
-            document.getElementById('scheduleModal').style.display = 'none';
-        }
-
-        function sendWhatsApp(name, phone, date) {
+        function sendWhatsApp(name, phone, date, label) {
             let cleanPhone = phone.replace(/\D/g, '');
             if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
-
-            let message = `Hello ${name},\n\nYour dental consultation with Dr. Pranav at Vighnaharta HiTech Dental Care is successfully scheduled for *${date}*.\n\nPlease reply with:\n1️⃣ To Confirm\n2️⃣ To Request a Date Change\n3️⃣ To Speak with the Clinic\n\nSee you soon!`;
-            
-            let encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
+            let message = `Hello ${name},\n\nYour dental consultation (${label}) with Dr. Pranav at Vighnaharta Hi-Tech Dental Care is successfully scheduled for *${date}*.\n\nPlease reply with:\n1️⃣ To Confirm\n2️⃣ To Request a Date Change\n3️⃣ To Speak with the Clinic\n\nSee you soon!`;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
         }
     </script>
 </body>
