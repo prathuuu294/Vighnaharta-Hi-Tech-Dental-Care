@@ -10,12 +10,11 @@
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #020617; color: white; padding: 20px 5%; overflow-x: hidden; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px; margin-top: 20px; flex-wrap: wrap; gap: 15px; }
         .btn-back { background: transparent; border: 1px solid #00e5ff; color: #00e5ff; padding: 8px 15px; border-radius: 8px; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-back:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
         
         .upload-form { display: flex; gap: 15px; background: rgba(255, 255, 255, 0.03); padding: 25px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 30px; flex-wrap: wrap; align-items: center; backdrop-filter: blur(10px); }
-        .upload-form input[type="file"] { flex: 1; min-width: 200px; padding: 12px; border-radius: 8px; border: 1px dashed rgba(0, 229, 255, 0.5); background: rgba(0, 0, 0, 0.2); color: white; }
+        .upload-form input[type="file"] { flex: 1; min-width: 200px; padding: 12px; border-radius: 8px; border: 1px dashed rgba(0, 229, 255, 0.5); background: rgba(0, 0, 0, 0.2); color: white; font-family: 'Poppins', sans-serif; }
+        .upload-form select { flex: 1; min-width: 200px; padding: 12px; border-radius: 8px; border: 1px solid rgba(0, 229, 255, 0.5); background: rgba(0, 0, 0, 0.5); color: white; font-family: 'Poppins', sans-serif; }
         .upload-form button { padding: 12px 25px; background: #00e5ff; color: #020617; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
-        .upload-form button:hover { background: #33ebff; transform: translateY(-2px); }
 
         .table-wrapper { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; overflow-x: auto; backdrop-filter: blur(10px); }
         table { width: 100%; border-collapse: collapse; min-width: 750px; }
@@ -24,19 +23,13 @@
         td a.view-link { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
         td a.view-link:hover { color: #00e5ff; }
         
-        /* Action Buttons */
         .action-group { display: flex; gap: 8px; flex-wrap: wrap; }
         .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: 0.3s; }
         .btn-rename { background: transparent; border: 1px solid #00e5ff; color: #00e5ff; }
-        .btn-rename:hover { background: rgba(0,229,255,0.1); }
-        .btn-pdf { background: #00e5ff; color: #020617; box-shadow: 0 0 10px rgba(0, 229, 255, 0.3); }
-        .btn-pdf:hover { background: #33ebff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
-        .btn-whatsapp { background: #25D366; color: #020617; box-shadow: 0 0 10px rgba(37, 211, 102, 0.3); }
-        .btn-whatsapp:hover { background: #20b858; box-shadow: 0 0 15px rgba(37, 211, 102, 0.5); transform: translateY(-2px); }
+        .btn-pdf { background: #00e5ff; color: #020617; }
+        .btn-whatsapp { background: #25D366; color: #020617; }
         .btn-delete { background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d; }
-        .btn-delete:hover { background: #ff4d4d; color: white; }
 
-        /* Rename Modal */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2,6,23,0.85); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .modal-box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); width: 90%; max-width: 350px; text-align: center; }
         .modal-box input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -51,8 +44,17 @@
         <a href="/admin" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
     </div>
 
+    <!-- NEW FILE UPLOAD FORM WITH APPOINTMENT DROPDOWN -->
     <form action="/upload_record/{{ lead.id }}" method="POST" enctype="multipart/form-data" class="upload-form">
         <input type="file" name="file" accept="image/*,application/pdf,.dcm" required>
+        
+        <select name="appointment_label" required>
+            <option value="General">General / No Specific Visit</option>
+            {% for appt in lead.appointments %}
+                <option value="{{ appt.label }}">{{ appt.label }} ({{ appt.date_str.split(' at ')[0] }})</option>
+            {% endfor %}
+        </select>
+
         <button type="submit"><i class="fas fa-lock"></i> Securely Save Record</button>
     </form>
 
@@ -69,38 +71,28 @@
             <tbody>
                 {% for record in records %}
                 <tr>
-                    <td><strong>{{ record.file_name }}</strong></td>
+                    <td>
+                        <span style="background: rgba(0,229,255,0.1); color: #00e5ff; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 5px; display: inline-block; font-weight: 700; text-transform: uppercase;">{{ record.appointment_label }}</span><br>
+                        <strong>{{ record.file_name }}</strong>
+                    </td>
                     <td>{{ record.upload_date.strftime('%b %d, %Y') }}</td>
                     <td><a href="{{ record.view_link }}" target="_blank" class="view-link"><i class="fas fa-image"></i> View Raw</a></td>
                     <td>
                         <div class="action-group">
-                            <!-- Rename -->
                             <button onclick="openRenameModal({{ record.id }}, '{{ record.file_name }}')" class="btn-action btn-rename"><i class="fas fa-pencil-alt"></i> Rename</button>
-                            
-                            <!-- Download PDF Brochure -->
                             <a href="/shared_report/{{ record.drive_file_id }}?download=1" class="btn-action btn-pdf"><i class="fas fa-file-download"></i> PDF Report</a>
-                            
-                            <!-- Share via WhatsApp -->
                             <button onclick="shareRecordWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ record.file_name }}', '{{ request.host_url }}shared_report/{{ record.drive_file_id }}')" class="btn-action btn-whatsapp"><i class="fab fa-whatsapp"></i> Share</button>
-                            
-                            <!-- Delete -->
                             <a href="/delete_record/{{ record.id }}" class="btn-action btn-delete" onclick="return confirm('Permanently delete this record?')"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>
                 {% else %}
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">
-                        <i class="fas fa-folder-open" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
-                        No clinical records saved for this patient yet.
-                    </td>
-                </tr>
+                <tr><td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;"><i class="fas fa-folder-open" style="font-size: 2.5rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>No clinical records saved for this patient yet.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <!-- Hidden Rename Modal -->
     <div id="renameModal" class="modal-overlay">
         <div class="modal-box">
             <h3 style="color: #00e5ff; margin-top: 0;"><i class="fas fa-edit"></i> Rename Record</h3>
@@ -118,23 +110,13 @@
             document.getElementById('renameInput').value = currentName;
             document.getElementById('renameModal').style.display = 'flex';
         }
-
-        function closeRenameModal() {
-            document.getElementById('renameModal').style.display = 'none';
-        }
-
+        function closeRenameModal() { document.getElementById('renameModal').style.display = 'none'; }
         function shareRecordWhatsApp(patientName, phone, recordName, reportUrl) {
             let cleanPhone = phone.replace(/\D/g, '');
             if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
-
-            // Direct download link is created by adding ?download=1
             let directDownloadLink = reportUrl + "?download=1";
-
-            // Pre-written WhatsApp message with the direct download link
             let message = `Hello ${patientName},\n\nYour clinical diagnostic report (*${recordName}*) from Dr. Pranav at Vighnaharta Hi-Tech Dental Care is ready.\n\nYou can securely download your official PDF report directly by clicking the link below:\n\n${directDownloadLink}\n\nTake care and keep smiling!`;
-            
-            let encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
         }
     </script>
 </body>
