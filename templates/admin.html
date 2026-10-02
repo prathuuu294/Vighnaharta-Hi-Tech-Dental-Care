@@ -115,14 +115,17 @@
                             <!-- Clinical Records Button -->
                             <a href="/records/{{ lead.id }}" class="action-btn" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; display: block; text-align: center; margin-bottom: 10px;"><i class="fas fa-folder-open"></i> Clinical Records</a>
 
-                            {% if lead.appointment_date %}
-                                <div class="status-scheduled">
+                             {% if lead.appointment_date %}
+                                <!-- ADDED EDIT BUTTON HERE -->
+                                <div class="status-scheduled" style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px;">
                                     <span><i class="fas fa-calendar-check"></i> {{ lead.appointment_date }}</span>
+                                    <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
                                 </div>
+                                
                                 <div style="display: flex; flex-direction: column; gap: 6px;">
                                     <button onclick="sendWhatsApp('{{ lead.name }}', '{{ lead.phone }}', '{{ lead.appointment_date }}')" class="action-btn btn-whatsapp" style="width: 100%; justify-content: center; margin: 0;"><i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> WhatsApp Patient</button>
                                     
-                                    <!-- NEW NEXT APPOINTMENT BUTTON -->
+                                    <!-- NEXT APPOINTMENT BUTTON -->
                                     <button onclick="openScheduleModal({{ lead.id }}, '{{ lead.name }}')" class="action-btn" style="width: 100%; justify-content: center; margin: 0; background: transparent; border: 1px solid #00e5ff; color: #00e5ff;"><i class="fas fa-calendar-plus"></i> Next Appointment</button>
                                 </div>
                             {% else %}
