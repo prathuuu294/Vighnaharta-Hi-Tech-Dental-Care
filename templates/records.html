@@ -44,7 +44,7 @@
         <a href="/admin" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
     </div>
 
-    <!-- NEW FILE UPLOAD FORM WITH APPOINTMENT DROPDOWN -->
+    <!-- FILE UPLOAD FORM WITH APPOINTMENT DROPDOWN -->
     <form action="/upload_record/{{ lead.id }}" method="POST" enctype="multipart/form-data" class="upload-form">
         <input type="file" name="file" accept="image/*,application/pdf,.dcm" required>
         
@@ -63,7 +63,7 @@
             <thead>
                 <tr>
                     <th>Record Name</th>
-                    <th>Date Saved</th>
+                    <th>Date Information</th>
                     <th>Raw File</th>
                     <th>Record Management Actions</th>
                 </tr>
@@ -75,7 +75,18 @@
                         <span style="background: rgba(0,229,255,0.1); color: #00e5ff; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; margin-bottom: 5px; display: inline-block; font-weight: 700; text-transform: uppercase;">{{ record.appointment_label }}</span><br>
                         <strong>{{ record.file_name }}</strong>
                     </td>
-                    <td>{{ record.upload_date.strftime('%b %d, %Y') }}</td>
+                    <td>
+                        <!-- Show Clinical Appt Date if it exists -->
+                        {% if record.appointment_label != 'General' and appt_dates.get(record.appointment_label) %}
+                            <div style="color: #25D366; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                                <i class="fas fa-calendar-check"></i> {{ appt_dates[record.appointment_label].split(' at ')[0] }}
+                            </div>
+                        {% endif %}
+                        <!-- Always show when it was physically uploaded -->
+                        <div style="color: #94a3b8; font-size: 0.75rem;">
+                            <i class="fas fa-cloud-upload-alt"></i> Saved: {{ record.upload_date.strftime('%b %d, %Y') }}
+                        </div>
+                    </td>
                     <td><a href="{{ record.view_link }}" target="_blank" class="view-link"><i class="fas fa-image"></i> View Raw</a></td>
                     <td>
                         <div class="action-group">
